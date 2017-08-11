@@ -1,0 +1,50 @@
+.App {
+  margin-left: 10px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.App header {
+  box-sizing: border-box;
+  background-color: #80b47b;
+  height: 70px;
+  padding: 20px;
+  color: white;
+  font-size: 24px;
+}
+
+table {
+  border-spacing: 0;
+}
+
+th {
+  text-align: left;
+  background: #c3d5d8;
+}
+
+td:nth-child(1), th:nth-child(1) {
+  width: 280px;
+}
+
+td:nth-child(2), td:nth-child(3), th:nth-child(2), th:nth-child(3) {
+  width: 80px;
+}
+
+td:nth-child(4), th:nth-child(4) {
+  width: 55px;
+}
+
+td input[type="text"] {
+  width: 100%;
+}
+
+td, th {
+  padding: 5px 10px;
+}
+
+tr:nth-child(even) {
+  background: #c3d5d8;
+}
+
+tr:nth-child(odd) {
+  background: #FFF;
+}

@@ -1,0 +1,61 @@
+
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    height: 100%;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: box;
+
+    -ms-flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+    box-orient: horizontal;
+}
+
+.nav {
+    border-right: solid 1px #CCC;
+    padding: 30px 27px 10px 0;
+    background: white;
+    width: 150px;
+    -ms-flex: 0 100px;
+    -webkit-box-flex:  0;
+    -moz-box-flex:  0;
+    -ms-box-flex:  0;
+    box-flex:  0;
+}
+
+.nav select {
+    width: 150px;
+}
+
+.main {
+    padding: 0 27px;
+    background: white;
+    -ms-flex: 1;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-box-flex: 1;
+    box-flex: 1;
+}
+
+.main h2 {
+    margin-bottom: 5px;
+}
+
+.BudgetIncome {
+    margin-bottom: 50px;
+}
+
+
+.BudgetExpense {
+    margin-bottom: 50px;
+}
