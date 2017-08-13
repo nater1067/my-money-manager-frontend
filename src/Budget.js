@@ -8,13 +8,14 @@ const formatCurrency = (amount) => numeral(amount).format('$0,0.00')
 
 class BudgetIncomeStream extends Component {
     render() {
+        const {deleteButtonPress} = this.props
         return (
             <tr>
                 <td>{this.props.name}</td>
                 <td>{formatCurrency(this.props.amount)}</td>
                 <td>{this.props.frequency}</td>
                 <td>
-                    <button>Delete</button>
+                    <button onClick={deleteButtonPress}>Delete</button>
                 </td>
             </tr>
         )
@@ -23,13 +24,14 @@ class BudgetIncomeStream extends Component {
 
 class BudgetExpense extends Component {
     render() {
+        const {deleteButtonPress} = this.props
         return (
             <tr>
                 <td>{this.props.name}</td>
                 <td>{formatCurrency(this.props.amount)}</td>
                 <td/>
                 <td>
-                    <button>Delete</button>
+                    <button onClick={deleteButtonPress}>Delete</button>
                 </td>
             </tr>
         )
@@ -154,6 +156,36 @@ class Budget extends Component {
         );
     }
 
+    deleteIncomeStream = (incomeStreamId) => (event) => {
+        const incomeStreamWithDeletedIncomeStreamRemoved =
+            this.state.incomeStreams
+                .filter(incomeStream => incomeStream.id !== incomeStreamId)
+
+        this.setState({incomeStreams: incomeStreamWithDeletedIncomeStreamRemoved})
+
+        const loadBudget = this.loadBudget.bind(this)
+
+        request.delete(
+            {url: `${apiHost}/incomeStream/${incomeStreamId}`},
+            (error, httpResponse, body) => {}
+        )
+    }
+
+    deleteExpense = (expenseId) => (event) => {
+        const expenseWithDeletedExpenseRemoved =
+            this.state.expenses
+                .filter(expense => expense.id !== expenseId)
+
+        this.setState({expenses: expenseWithDeletedExpenseRemoved})
+
+        const loadBudget = this.loadBudget.bind(this)
+
+        request.delete(
+            {url: `${apiHost}/expense/${expenseId}`},
+            (error, httpResponse, body) => {}
+        )
+    }
+
     clearNewExpenseForm() {
         this.setState({
             newExpenseAmount: "",
@@ -170,8 +202,12 @@ class Budget extends Component {
     }
 
     render() {
-        const budgetIncomeStreams = this.state.incomeStreams.map(x => <BudgetIncomeStream {...x}/>)
-        const budgetExpenses = this.state.expenses.map(x => <BudgetExpense {...x}/>)
+        const budgetIncomeStreams = this.state.incomeStreams.map(incomeStream => (
+            <BudgetIncomeStream {...incomeStream} deleteButtonPress={this.deleteIncomeStream(incomeStream.id)}/>
+        ))
+        const budgetExpenses = this.state.expenses.map(expense => (
+            <BudgetExpense {...expense} deleteButtonPress={this.deleteExpense(expense.id)}/>
+        ))
 
         return (
             <div>
