@@ -65,6 +65,9 @@ class Budget extends Component {
         this.state = {
             incomeStreams: [],
             expenses: [],
+            totalLeftOver: 0,
+            totalExpenses: 0,
+            totalIncome: 0,
             budgetId: props.budgetId,
             newExpenseName: "",
             newExpenseAmount: "",
@@ -224,12 +227,6 @@ class Budget extends Component {
                         </thead>
                         <tbody>
                         {budgetIncomeStreams}
-                        {this.state.incomeStreams.length % 2 === 0 && <tr>
-                            <td>&nbsp;</td>
-                            <td/>
-                            <td/>
-                            <td/>
-                        </tr>}
                         <tr>
                             <td><input type="text" value={this.state.newIncomeStreamName}
                                        onChange={this.changeNewIncomeStreamName.bind(this)}
@@ -241,6 +238,18 @@ class Budget extends Component {
                             <td>
                                 <button onClick={this.createNewIncomeStream.bind(this)}>Create</button>
                             </td>
+                        </tr>
+                        {this.state.incomeStreams.length % 2 !== 0 && <tr>
+                            <td>&nbsp;</td>
+                            <td/>
+                            <td/>
+                            <td/>
+                        </tr>}
+                        <tr>
+                            <td>Total Income</td>
+                            <td>{formatCurrency(this.state.totalIncome)}</td>
+                            <td/>
+                            <td/>
                         </tr>
                         </tbody>
                     </table>
@@ -258,12 +267,6 @@ class Budget extends Component {
                         </thead>
                         <tbody>
                         {budgetExpenses}
-                        {this.state.expenses.length % 2 === 0 && <tr>
-                            <td>&nbsp;</td>
-                            <td/>
-                            <td/>
-                            <td/>
-                        </tr>}
                         <tr>
                             <td><input type="text" value={this.state.newExpenseName}
                                        onChange={this.changeNewExpenseName.bind(this)}
@@ -275,19 +278,49 @@ class Budget extends Component {
                                 <button onClick={this.createNewExpense.bind(this)}>Create</button>
                             </td>
                         </tr>
+                        {this.state.expenses.length % 2 !== 0 && <tr>
+                            <td>&nbsp;</td>
+                            <td/>
+                            <td/>
+                            <td/>
+                        </tr>}
+                        <tr>
+                            <td>Total Expenses</td>
+                            <td>{formatCurrency(this.state.totalExpenses)}</td>
+                            <td/>
+                            <td/>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
                 <div className="BudgetLeftOver">
-                    <h2>Left Over</h2>
+                    <h2>Totals</h2>
                     <table>
                         <thead>
-                        <tr>
-                            <th>Total</th>
-                            <th>$1200.00</th>
-                            <th/>
-                            <th/>
-                        </tr>
+                            <tr>
+                                <td />
+                                <td />
+                                <td />
+                                <td />
+                            </tr>
+                            <tr>
+                                <td>Income</td>
+                                <td>{formatCurrency(this.state.totalIncome)}</td>
+                                <td />
+                                <td />
+                            </tr>
+                            <tr>
+                                <td>Expenses</td>
+                                <td>{formatCurrency(this.state.totalExpenses)}</td>
+                                <td />
+                                <td />
+                            </tr>
+                            <tr>
+                                <td>Left Over</td>
+                                <td>{formatCurrency(this.state.totalLeftOver)}</td>
+                                <td />
+                                <td />
+                            </tr>
                         </thead>
                     </table>
                 </div>

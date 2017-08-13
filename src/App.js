@@ -61,32 +61,79 @@ class App extends Component {
         super(props)
         this.state = {
             activeBudgetId: "",
-            budgetIds: [], // All available budget ids
+            newBudgetName: "",
+            budgets: [], // All available budget ids
         }
     }
 
     changeActiveBudgetId(event) {
-        this.setState({activeBudgetId: event.target.value});
+        this.setActiveBudgetId(event.target.value);
+    }
+
+    setActiveBudgetId(budgetId) {
+        this.setState({activeBudgetId: budgetId});
     }
 
     componentDidMount() {
-        fetchBudgetIds()
-            .then(budgetIds => {
-                this.setState({budgetIds})
+        this.reloadAllBudgets()
+    }
+
+    reloadAllBudgets() {
+        return fetchBudgetIds()
+            .then(budgets => {
+                this.setState({budgets})
             })
     }
 
-    submitLoadBudget(event) {
-        event.preventDefault()
-        this.loadBudget()
+    changeNewBudgetName(event) {
+        this.setState({newBudgetName: event.target.value});
     }
 
+    createBudget(event) {
+        const setActiveBudgetId = this.setActiveBudgetId.bind(this)
+        const reloadAllBudgets = this.reloadAllBudgets.bind(this)
+        const newBudgetName = this.state.newBudgetName
+
+        request.post(
+            `${apiHost}/budget/`,
+            {
+                form: {
+                    name: newBudgetName,
+                }
+            },
+            (err, httpResponse, body) => {
+                reloadAllBudgets()
+                    .then(() => {
+                        debugger
+                        setActiveBudgetId(JSON.parse(body)["id"])
+                    })
+            }
+        );
+    }
+
+    deleteBudget = () => {
+        const budgetId = parseInt(this.state.activeBudgetId)
+
+        const budgetWithDeletedBudgetRemoved =
+            this.state.budgets
+                .filter(budget => budget.id !== budgetId)
+
+        this.setState({
+            budgets: budgetWithDeletedBudgetRemoved,
+            activeBudgetId: "",
+        })
+
+        request.delete(
+            {url: `${apiHost}/budgets/${budgetId}`},
+            (error, httpResponse, body) => {}
+        )
+    }
 
     render() {
-        const {budgetIds, activeBudgetId} = this.state
+        const {budgets, activeBudgetId} = this.state
 
-        const budgetOptions = this.state.budgetIds.map(x => (
-            <option key={x} value={x}>Budget { x }</option>
+        const budgetOptions = this.state.budgets.map(budget => (
+            <option key={budget.id} value={budget.id}>{ budget.name }</option>
         ))
 
         return (
@@ -99,13 +146,19 @@ class App extends Component {
                 <div className="container">
                     <div className="nav">
                         Select A Budget:<br/>
-                        {/*<form onSubmit={this.submitLoadBudget.bind(this)}>*/}
-                        <select value={this.state.budgetId} onChange={this.changeActiveBudgetId.bind(this)}>
+                        <select value={this.state.activeBudgetId} onChange={this.changeActiveBudgetId.bind(this)}>
                             <option>Select a budget</option>
                             {budgetOptions}
                         </select>
-                        <input type="submit" value="Go"/>
-                        {/*</form>*/}
+                        <button onClick={this.deleteBudget.bind(this)}>Delete Budget</button>
+
+                        <br />
+                        <br />
+                        Create New Budget:
+                        <input type="text" value={this.state.newBudgetName}
+                               onChange={this.changeNewBudgetName.bind(this)}
+                               placeholder="New budget name" />
+                        <button onClick={this.createBudget.bind(this)}>Create</button>
                     </div>
                     <div className="main">
                         {activeBudgetId && <Budget budgetId={activeBudgetId}/>}
