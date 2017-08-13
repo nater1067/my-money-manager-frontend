@@ -150,7 +150,7 @@ class App extends Component {
                             <option>Select a budget</option>
                             {budgetOptions}
                         </select>
-                        <button onClick={this.deleteBudget.bind(this)}>Delete Budget</button>
+                        {activeBudgetId !== "" && <button onClick={this.deleteBudget.bind(this)}>Delete Budget</button>}
 
                         <br />
                         <br />
