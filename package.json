@@ -6,9 +6,11 @@
     "numeral": "^2.0.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "history": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
