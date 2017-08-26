@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import './App.scss';
 import BudgetController from './BudgetController.js'
 import {
     BrowserRouter as Router,

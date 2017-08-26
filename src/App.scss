@@ -1,11 +1,12 @@
+@import './variables.scss';
+
 .App {
-  margin-left: 10px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .App header {
   box-sizing: border-box;
-  background-color: #80b47b;
+  background-color: $headerBackground;
   height: 70px;
   padding: 20px;
   color: white;

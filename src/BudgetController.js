@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import './App.scss';
 import Budget from './Budget.js'
 import request from 'request'
 import {apiHost} from './config'
