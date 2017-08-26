@@ -125,6 +125,10 @@ module.exports = {
         ],
         include: paths.appSrc,
       },
+      {
+          test: /\.scss$/,
+          loaders: [require.resolve('style-loader'), require.resolve('css-loader'), require.resolve('sass-loader')]
+      },
       // ** ADDING/UPDATING LOADERS **
       // The "file" loader handles all assets unless explicitly excluded.
       // The `exclude` list *must* be updated with every change to loader extensions.
@@ -139,6 +143,7 @@ module.exports = {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.css$/,
+          /\.scss$/,
           /\.json$/,
           /\.bmp$/,
           /\.gif$/,
@@ -149,11 +154,6 @@ module.exports = {
         options: {
           name: 'static/media/[name].[hash:8].[ext]',
         },
-      },
-      {
-          test: /\.scss$/,
-          include: paths.appSrc,
-          loaders: ["style", "css", "sass"]
       },
       // "url" loader works like "file" loader except that it embeds assets
       // smaller than specified limit in bytes as data URLs to avoid requests.
