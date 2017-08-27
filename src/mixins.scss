@@ -1,0 +1,17 @@
+@mixin createButton($color) {
+  padding: 4px;
+  background: #FFFFFF;
+  border: solid 1px $color;
+  color: $color;
+  border-radius: 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+
+  &:hover {
+    color: lighten($color, 10%);
+    border-color: lighten($color, 50%);
+  }
+}

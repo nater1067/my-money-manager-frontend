@@ -1,4 +1,12 @@
 @import './variables.scss';
+@import './mixins.scss';
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
 .App {
   font-family: 'Ubuntu', sans-serif;
@@ -7,10 +15,54 @@
 .App header {
   box-sizing: border-box;
   background-color: $headerBackground;
-  height: 70px;
-  padding: 20px;
-  color: white;
-  font-size: 24px;
+  padding: 0 20px 2px 10px;
+  font-size: 26px;
+
+  a {
+    text-decoration: none;
+    color: $orange;
+    &:not(:first-child) {
+      &:before{content:'\00B7';padding-right:5px;}
+      padding-right: 5px;
+    }
+    &:nth-child(2) {
+      &:before{content:''}
+      padding-left: 10px;
+      border-left: none;
+    }
+  }
+}
+
+.displayNone {
+  display: none;
+}
+
+input[type="text"] {
+  border: none;
+  border-radius: 2px;
+  padding: 5px;
+}
+
+button {
+  @include createButton($brown)
+}
+
+button.inactiveButton, a.inactiveButton {
+  opacity: .7;
+}
+
+button.deleteButton {
+  @include createButton($warningRed)
+}
+
+button.primaryButton {
+  @include createButton($primaryBlue)
+}
+
+#homeLink {
+  color: $yellow;
+  font-family: 'Knewave', cursive;
+  font-size: 38px;
 }
 
 table {
@@ -19,7 +71,7 @@ table {
 
 th {
   text-align: left;
-  background: #c3d5d8;
+  background: lighten($lightGreen, 15%);
 }
 
 td:nth-child(1), th:nth-child(1) {
@@ -27,11 +79,11 @@ td:nth-child(1), th:nth-child(1) {
 }
 
 td:nth-child(2), td:nth-child(3), th:nth-child(2), th:nth-child(3) {
-  width: 80px;
+  width: 120px;
 }
 
 td:nth-child(4), th:nth-child(4) {
-  width: 55px;
+  width: 75px;
 }
 
 td input[type="text"] {
@@ -43,9 +95,9 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background: #c3d5d8;
+  background: lighten($lightGreen, 15%);
 }
 
 tr:nth-child(odd) {
-  background: #FFF;
+  background: lighten($lightGreen, 25%);
 }

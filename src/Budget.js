@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Budget.css';
+import './Budget.scss';
 import numeral from 'numeral'
 import request from 'request'
 import {apiHost} from './config'
@@ -15,7 +15,7 @@ class BudgetIncomeStream extends Component {
                 <td>{formatCurrency(this.props.amount)}</td>
                 <td>{this.props.frequency}</td>
                 <td>
-                    <button onClick={deleteButtonPress}>Delete</button>
+                    <button onClick={deleteButtonPress} className="deleteButton">Delete</button>
                 </td>
             </tr>
         )
@@ -31,7 +31,7 @@ class BudgetExpense extends Component {
                 <td>{formatCurrency(this.props.amount)}</td>
                 <td/>
                 <td>
-                    <button onClick={deleteButtonPress}>Delete</button>
+                    <button onClick={deleteButtonPress} className="deleteButton">Delete</button>
                 </td>
             </tr>
         )
@@ -214,7 +214,7 @@ class Budget extends Component {
 
         return (
             <div>
-                <div className="BudgetIncome">
+                <div className="BudgetSection">
                     <h2>Income</h2>
                     <table>
                         <thead>
@@ -236,7 +236,7 @@ class Budget extends Component {
                             <td><input type="text" value={this.state.newIncomeStreamFrequency}
                                        onChange={this.changeNewIncomeStreamFrequency.bind(this)} placeholder="2"/></td>
                             <td>
-                                <button onClick={this.createNewIncomeStream.bind(this)}>Create</button>
+                                <button className="primaryButton" onClick={this.createNewIncomeStream.bind(this)}>Create</button>
                             </td>
                         </tr>
                         {this.state.incomeStreams.length % 2 !== 0 && <tr>
@@ -254,7 +254,7 @@ class Budget extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="BudgetExpense">
+                <div className="BudgetSection">
                     <h2>Expenses</h2>
                     <table>
                         <thead>
@@ -275,7 +275,7 @@ class Budget extends Component {
                                        onChange={this.changeNewExpenseAmount.bind(this)} placeholder="1000"/></td>
                             <td/>
                             <td>
-                                <button onClick={this.createNewExpense.bind(this)}>Create</button>
+                                <button className="primaryButton" onClick={this.createNewExpense.bind(this)}>Create</button>
                             </td>
                         </tr>
                         {this.state.expenses.length % 2 !== 0 && <tr>
@@ -293,11 +293,11 @@ class Budget extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="BudgetLeftOver">
+                <div className="BudgetSection">
                     <h2>Totals</h2>
                     <table>
                         <thead>
-                            <tr>
+                            <tr className="displayNone">
                                 <td />
                                 <td />
                                 <td />

@@ -18,7 +18,7 @@ export default class BudgetController extends Component {
         super(props)
         const maybeBudgetId = props.match.params.budgetId
         this.state = {
-            activeBudgetId: maybeBudgetId !== undefined ? maybeBudgetId : "",
+            activeBudgetId: maybeBudgetId !== undefined ? parseInt(maybeBudgetId) : "",
             newBudgetName: "",
             budgets: [], // All available budget ids
         }
@@ -36,8 +36,8 @@ export default class BudgetController extends Component {
         const maybeNewBudgetId = this.props.match.params.budgetId
 
         if (maybeNewBudgetId !== undefined
-            && maybeNewBudgetId !== prevState.activeBudgetId) {
-            this.setActiveBudgetId(maybeNewBudgetId)
+            && parseInt(maybeNewBudgetId) !== prevState.activeBudgetId) {
+            this.setActiveBudgetId(parseInt(maybeNewBudgetId))
         }
     }
 
@@ -91,24 +91,27 @@ export default class BudgetController extends Component {
     render() {
         const {budgets, activeBudgetId} = this.state
 
-        const budgetLinks = this.state.budgets.map(budget => (
-            <div key={budget.id}><Link to={`/budget/${budget.id}`}>{ budget.name }</Link></div>
+        console.log("activeBudgetId", activeBudgetId)
+
+        const activeBudget = budgets.find(x => x.id == activeBudgetId)
+
+        const budgetLinks = budgets.map(budget => (
+            <div key={budget.id}><Link to={`/budget/${budget.id}`} className={(activeBudgetId === budget.id ? 'activeButton' : 'inactiveButton')}>{ budget.name }</Link></div>
         ))
 
         return (
             <div className="container">
                 <div className="nav">
-                    Select A Budget:<br/>
+                    Budgets<br/>
                     {budgetLinks}
-                    {activeBudgetId !== "" && <button onClick={this.deleteBudget.bind(this)}>Delete Budget</button>}
+                    {activeBudget !== undefined && <button className="deleteButton" onClick={this.deleteBudget.bind(this)}>Delete { activeBudget.name }</button>}
 
                     <br />
                     <br />
-                    Create New Budget:
                     <input type="text" value={this.state.newBudgetName}
                            onChange={this.changeNewBudgetName.bind(this)}
                            placeholder="New budget name" />
-                    <button onClick={this.createBudget.bind(this)}>Create</button>
+                    <button className="primaryButton" onClick={this.createBudget.bind(this)}>Create</button>
                 </div>
                 <div className="main">
                     {activeBudgetId && <Budget budgetId={activeBudgetId}/>}

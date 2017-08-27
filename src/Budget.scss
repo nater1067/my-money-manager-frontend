@@ -1,9 +1,15 @@
+@import "./variables";
+@import "./mixins";
 
 html,
 body {
     height: 100%;
     padding: 0;
     margin: 0;
+}
+
+body {
+    background-color: $tan;
 }
 
 .container {
@@ -22,9 +28,9 @@ body {
 }
 
 .nav {
-    border-right: solid 1px #CCC;
-    padding: 30px 27px 10px 0;
-    background: white;
+    color: $brown;
+    padding: 26px 10px 10px 10px;
+    text-align: center;
     width: 150px;
     -ms-flex: 0 100px;
     -webkit-box-flex:  0;
@@ -33,13 +39,21 @@ body {
     box-flex:  0;
 }
 
-.nav select {
-    width: 150px;
+.nav a, .nav button {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.nav input {
+    text-align: center;
+    width: 100%;
+}
+
+.nav a {
+    @include createButton($orange);
 }
 
 .main {
-    padding: 0 27px;
-    background: white;
     -ms-flex: 1;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -48,14 +62,12 @@ body {
 }
 
 .main h2 {
-    margin-bottom: 5px;
+    color: $brown;
+    margin-bottom: 0;
+    padding-left: 10px;
 }
 
-.BudgetIncome {
-    margin-bottom: 50px;
-}
-
-
-.BudgetExpense {
-    margin-bottom: 50px;
+.BudgetSection table {
+    border: solid 1px #CCC;
+    margin-left: 10px;
 }

@@ -17,7 +17,10 @@ class App extends Component {
             <Router history={createBrowserHistory()}>
                 <div className="App">
                     <header>
-                        <Link to="/home">My Money Manager</Link>&nbsp;&nbsp;&nbsp;<Link to="/budgets">Budgets</Link>
+                        <Link to="/home" id="homeLink">My Money Manager</Link>
+                        <Link to="/budgets">Budgets</Link>
+                        <Link to="/budgets">Savings</Link>
+                        <Link to="/budgets">Retirement</Link>
                     </header>
 
                     <Route exact path="/" component={BudgetController}/>
