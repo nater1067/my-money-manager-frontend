@@ -24,7 +24,8 @@ class BudgetIncomeStream extends Component {
 
 class BudgetExpense extends Component {
     render() {
-        const {deleteButtonPress} = this.props
+        const {deleteButtonPress, savingsButtonPress} = this.props
+        const hasSavingsTag = this.props.tags.includes("savings");
         return (
             <tr>
                 <td>{this.props.name}</td>
@@ -32,6 +33,7 @@ class BudgetExpense extends Component {
                 <td/>
                 <td>
                     <button onClick={deleteButtonPress} className="deleteButton">Delete</button>
+                    <button onClick={savingsButtonPress} className={(hasSavingsTag ? 'activeButton primaryButton' : 'inactiveButton primaryButton')}>Savings</button>
                 </td>
             </tr>
         )
@@ -166,8 +168,6 @@ class Budget extends Component {
 
         this.setState({incomeStreams: incomeStreamWithDeletedIncomeStreamRemoved})
 
-        const loadBudget = this.loadBudget.bind(this)
-
         request.delete(
             {url: `${apiHost}/incomeStream/${incomeStreamId}`},
             (error, httpResponse, body) => {}
@@ -181,10 +181,27 @@ class Budget extends Component {
 
         this.setState({expenses: expenseWithDeletedExpenseRemoved})
 
-        const loadBudget = this.loadBudget.bind(this)
-
         request.delete(
             {url: `${apiHost}/expense/${expenseId}`},
+            (error, httpResponse, body) => {}
+        )
+    }
+
+    addTagToExpense = (expenseId, tagToAdd) => (event) => {
+        const expensesWithNewlyTaggedExpense =
+            this.state.expenses
+                .map(expense => {
+                    if (expense.id == expenseId) {
+                        expense.tags.push(tagToAdd)
+                    }
+
+                    return expense;
+                })
+
+        this.setState({expenses: expensesWithNewlyTaggedExpense})
+
+        request.post(
+            {url: `${apiHost}/expense/${expenseId}/tags/${tagToAdd}`},
             (error, httpResponse, body) => {}
         )
     }
@@ -208,9 +225,11 @@ class Budget extends Component {
         const budgetIncomeStreams = this.state.incomeStreams.map(incomeStream => (
             <BudgetIncomeStream {...incomeStream} deleteButtonPress={this.deleteIncomeStream(incomeStream.id)}/>
         ))
-        const budgetExpenses = this.state.expenses.map(expense => (
-            <BudgetExpense {...expense} deleteButtonPress={this.deleteExpense(expense.id)}/>
-        ))
+        const budgetExpenses = this.state.expenses.map(expense => {
+            return (
+                <BudgetExpense {...expense} savingsButtonPress={this.addTagToExpense(expense.id, 'savings')} deleteButtonPress={this.deleteExpense(expense.id)}/>
+            )
+        })
 
         return (
             <div>

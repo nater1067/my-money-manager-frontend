@@ -9,9 +9,11 @@
   text-decoration: none;
   text-align: center;
   display: inline-block;
+  box-shadow: rgba(0,0,0, 0.1) 0 0 8px;
 
   &:hover {
     color: lighten($color, 10%);
-    border-color: lighten($color, 50%);
+    border-color: #FFFFFF;
+    box-shadow: none;
   }
 }
