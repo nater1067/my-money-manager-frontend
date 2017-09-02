@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.scss';
 import BudgetController from './BudgetController.js'
+import SavingsController from './SavingsController.js'
 import {
     BrowserRouter as Router,
     Route,
@@ -19,7 +20,7 @@ class App extends Component {
                     <header>
                         <Link to="/home" id="homeLink">My Money Manager</Link>
                         <Link to="/budgets">Budgets</Link>
-                        <Link to="/budgets">Savings</Link>
+                        <Link to="/savings">Savings</Link>
                         <Link to="/budgets">Retirement</Link>
                     </header>
 
@@ -27,6 +28,7 @@ class App extends Component {
                     <Route exact path="/home" component={Home}/>
                     <Route path="/budgets" component={BudgetController}/>
                     <Route path="/budget/:budgetId" component={BudgetController}/>
+                    <Route path="/savings" component={SavingsController}/>
                 </div>
             </Router>
         );
