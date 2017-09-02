@@ -45,6 +45,9 @@ export default class BudgetController extends Component {
         return fetchBudgetIds()
             .then(budgets => {
                 this.setState({budgets})
+                if (this.state.activeBudgetId === "" && budgets[0] !== undefined) {
+                    this.setActiveBudgetId(budgets[0]["id"])
+                }
             })
     }
 
@@ -90,8 +93,6 @@ export default class BudgetController extends Component {
 
     render() {
         const {budgets, activeBudgetId} = this.state
-
-        console.log("activeBudgetId", activeBudgetId)
 
         const activeBudget = budgets.find(x => x.id == activeBudgetId)
 
