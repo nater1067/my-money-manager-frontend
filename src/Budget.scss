@@ -54,6 +54,7 @@ body {
 }
 
 .main {
+    padding-left: 10px;
     -ms-flex: 1;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -64,10 +65,8 @@ body {
 .main h2 {
     color: $brown;
     margin-bottom: 0;
-    padding-left: 10px;
 }
 
 .BudgetSection table {
     border: solid 1px #CCC;
-    margin-left: 10px;
 }

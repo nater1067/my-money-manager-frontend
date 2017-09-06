@@ -10,6 +10,7 @@
   text-align: center;
   display: inline-block;
   box-shadow: rgba(0,0,0, 0.1) 0 0 8px;
+  outline: none;
 
   &:hover {
     color: lighten($color, 10%);

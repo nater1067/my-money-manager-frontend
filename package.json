@@ -51,7 +51,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "cp ./src/config.js ./src/config.bak.js && cp ./src/config-prod.js ./src/config.js && node scripts/build.js && mv ./src/config.bak.js ./src/config.js",
+    "build": "cp ./src/config.js ./src/config.bak.js && cp ./src/config-prod.js ./src/config.js && node ./scripts/build.js && mv ./src/config.bak.js ./src/config.js",
     "deploy": "aws s3 cp --recursive ./build s3://mymoneymanager.com2",
     "test": "node scripts/test.js --env=jsdom"
   },
